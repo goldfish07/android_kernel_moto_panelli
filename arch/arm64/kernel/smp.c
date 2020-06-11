@@ -250,12 +250,6 @@ asmlinkage void secondary_start_kernel(void)
 
 	complete(&cpu_running);
 
-	aee_rr_rec_hotplug_footprint(cpu, 13);
-
-	local_dbg_enable();
-
-	aee_rr_rec_hotplug_footprint(cpu, 14);
-
 	local_irq_enable();
 
 	aee_rr_rec_hotplug_footprint(cpu, 15);
