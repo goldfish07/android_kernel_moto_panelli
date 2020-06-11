@@ -2701,7 +2701,7 @@ static void binder_transaction(struct binder_proc *proc,
 				}
 				node->min_priority = fp->flags & FLAT_BINDER_FLAG_PRIORITY_MASK;
 				node->accept_fds = !!(fp->flags & FLAT_BINDER_FLAG_ACCEPTS_FDS);
-			}
+			
 			if (fp->cookie != node->cookie) {
 				binder_user_error("%d:%d sending u%016llx node %d, cookie mismatch %016llx != %016llx\n",
 					proc->pid, thread->pid,
@@ -2730,7 +2730,8 @@ static void binder_transaction(struct binder_proc *proc,
 				     "        node %d u%016llx -> ref %d desc %d\n",
 				     node->debug_id, (u64)node->ptr,
 				     ref->debug_id, ref->desc);
-		} break;
+		}
+	  break;
 		case BINDER_TYPE_HANDLE:
 		case BINDER_TYPE_WEAK_HANDLE: {
 			struct binder_ref *ref;
