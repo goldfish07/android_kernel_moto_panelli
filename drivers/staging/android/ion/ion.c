@@ -479,17 +479,6 @@ static struct ion_handle *pass_to_user(struct ion_handle *handle)
 	return ret;
 }
 
-/* Must hold the client lock */
-static int user_ion_handle_put_nolock(struct ion_handle *handle)
-{
-	int ret = 0;
-
-	if (--handle->user_ref_count == 0)
-		ret = ion_handle_put_nolock(handle);
-
-	return ret;
-}
-
 static struct ion_handle *ion_handle_lookup(struct ion_client *client,
 					    struct ion_buffer *buffer)
 {
@@ -692,11 +681,6 @@ void ion_free(struct ion_client *client, struct ion_handle *handle)
 	mutex_lock(&client->lock);
 	ion_free_nolock(client, handle);
 	mutex_unlock(&client->lock);
-<<<<<<< HEAD
-	MMProfileLogEx(ION_MMP_Events[PROFILE_FREE], MMProfileFlagPulse,
-			 (unsigned long)client, (unsigned long)handle);
-=======
->>>>>>> f635142... staging/android/ion : fix a race condition in the ion driver
 }
 EXPORT_SYMBOL(ion_free);
 
