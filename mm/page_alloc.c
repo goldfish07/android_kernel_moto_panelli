@@ -6703,7 +6703,12 @@ int alloc_contig_range(unsigned long start, unsigned long end,
 
 	/* Make sure the range is really isolated. */
 	if (test_pages_isolated(outer_start, end, false)) {
-		pr_info_ratelimited("%s: [%lx, %lx) PFNs busy\n",
+#if defined(CONFIG_CMA_DEBUG) && defined(CONFIG_PAGE_OWNER)
+		struct page *page;
+		unsigned long pfn;
+		int bt_per_fail = 5;
+#endif
+		pr_info("%s: [%lx, %lx) PFNs busy\n",
 			__func__, outer_start, end);
 #if defined(CONFIG_CMA_DEBUG) && defined(CONFIG_PAGE_OWNER)
 		pr_info("========\n");
